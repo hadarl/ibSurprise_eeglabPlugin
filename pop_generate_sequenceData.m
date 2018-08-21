@@ -1,8 +1,6 @@
 function [EEG, com] = pop_generate_sequenceData( EEG,  param1 )
 com = ''; 
 
-EEG.ibsurprise.sequenceData = [];
-
 % empty history
 if nargin < 2 
         % pop up window if less than 2 arguments 
@@ -13,7 +11,7 @@ if nargin < 2
         param1  = eval( [ '[' result{1} ']' ] ); 
 % the brackets allow to process matlab arrays 
 end
-generate_sequenceData( EEG.data, param1); 
+EEG = generate_sequenceData( EEG, param1); 
 % run sample function 
 com = sprintf('pop_generate_sequenceData(EEG, %d );', param1); 
 % return history 
