@@ -67,22 +67,23 @@ function vers = eegplugin_ibSurprise(fig, trystrs, catchstrs)
     
     % menu callback commands
     % ----------------------
-    comsetting = []; % [ trystrs.check_ica check_chans '[EEG LASTCOM]=pop_dipfit_settings(EEG);'    catchstrs.store_and_hist ]; 
-    combatch   = []; % [ check_dipfit check_chans  '[EEG LASTCOM] = pop_dipfit_gridsearch(EEG);'    catchstrs.store_and_hist ];
-    comfit     = []; % [ check_dipfitnocheck check_chans [ 'EEG = pop_dipfit_nonlinear(EEG); ' ...
-%                         'LASTCOM = ''% === History not supported for manual dipole fitting ==='';' ]  catchstrs.store_and_hist ];
-    comauto    = []; % [ check_dipfit check_chans  '[EEG LASTCOM] = pop_multifit(EEG);'        catchstrs.store_and_hist ];
+    comGenSeqData =         [ trystrs.check_ica check_chans '[EEG LASTCOM]=pop_dipfit_settings(EEG);'    catchstrs.store_and_hist ]; 
+    comOddballPotential   = [ check_dipfit check_chans  '[EEG LASTCOM] = pop_dipfit_gridsearch(EEG);'    catchstrs.store_and_hist ];
+    comCalcIbPred     =     [ check_dipfitnocheck check_chans [ 'EEG = pop_dipfit_nonlinear(EEG); ' ...
+                             'LASTCOM = ''% === History not supported for manual dipole fitting ==='';' ]  catchstrs.store_and_hist ];
+    comFit    =             [ check_dipfit check_chans  '[EEG LASTCOM] = pop_multifit(EEG);'        catchstrs.store_and_hist ];
     % preserve the '=" sign in the comment above: it is used by EEGLAB to detect appropriate LASTCOM
-    complot    = []; % [ check_dipfit check_chans 'LASTCOM = pop_dipplot(EEG);'                     catchstrs.add_to_hist ];
+    comModelPlot    =       [ check_dipfit check_chans 'LASTCOM = pop_dipplot(EEG);'                     catchstrs.add_to_hist ];
+    comPval    =            [ check_dipfit check_chans 'LASTCOM = pop_dipplot(EEG);'                     catchstrs.add_to_hist ];
 
     
     % create menus
     % ------------
 %     submenu = uimenu( menu, 'Label', 'Locate dipoles using DIPFIT 2.x', 'separator', 'on');
     submenu = uimenu( menu, 'Label', 'IB surprise analysis', 'separator', 'on');
-    uimenu( submenu, 'Label', 'Create sequence data'   , 'CallBack', combatch);
-    uimenu( submenu, 'Label', 'Plot oddball probability potential'   , 'CallBack', combatch);
-    uimenu( submenu, 'Label', 'Calculate IB predictors'  , 'CallBack', comsetting);
-    uimenu( submenu, 'Label', 'Calculate model fit map'     , 'CallBack', comfit);
-    uimenu( submenu, 'Label', 'Best model analysis (SRP, single trials and means regression)', 'CallBack', comauto);
-    uimenu( submenu, 'Label', 'Calculate p-value (permutation test)'  , 'CallBack', complot, 'separator', 'on');
+    uimenu( submenu, 'Label', 'Create sequence data'   , 'CallBack', comGenSeqData);
+    uimenu( submenu, 'Label', 'Plot oddball probability potential'   , 'CallBack', comOddballPotential);
+    uimenu( submenu, 'Label', 'Calculate IB predictors'  , 'CallBack', comCalcIbPred);
+    uimenu( submenu, 'Label', 'Calculate model fit map'     , 'CallBack', comFit);
+    uimenu( submenu, 'Label', 'Best model analysis (SRP, single trials and means regression)', 'CallBack', comModelPlot);
+    uimenu( submenu, 'Label', 'Calculate p-value (permutation test)'  , 'CallBack', comPval, 'separator', 'on');
