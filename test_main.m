@@ -6,3 +6,6 @@ EEG = pop_epoch( EEG, {  }, [-0.2           1], 'newname', 'BDF file epochs', 'e
 [ALLEEG, EEG, CURRENTSET] = eeg_store( ALLEEG, EEG, 0 );
 EEG = eeg_checkset( EEG );
 eeglab redraw;
+
+EEG = pop_selectevent( EEG, 'type',[34 35] ,'deleteevents','on','deleteepochs','on','invertepochs','off');
+EEG = eeg_checkset( EEG );
