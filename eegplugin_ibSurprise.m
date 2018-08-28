@@ -1,5 +1,5 @@
-% eegplugin_dipfit() - DIPFIT plugin version 2.0 for EEGLAB menu. 
-%                      DIPFIT is the dipole fitting Matlab Toolbox of 
+% eegplugin_dipfit() - DIPFIT plugin version 2.0 for EEGLAB menu.
+%                      DIPFIT is the dipole fitting Matlab Toolbox of
 %                      Robert Oostenveld (in collaboration with A. Delorme).
 %
 % Usage:
@@ -12,11 +12,11 @@
 %
 % Notes:
 %   To create a new plugin, simply create a file beginning with "eegplugin_"
-%   and place it in your eeglab folder. It will then be automatically 
+%   and place it in your eeglab folder. It will then be automatically
 %   detected by eeglab. See also this source code internal comments.
-%   For eeglab to return errors and add the function's results to 
-%   the eeglab history, menu callback must be nested into "try" and 
-%   a "catch" strings. For more information on how to create eeglab 
+%   For eeglab to return errors and add the function's results to
+%   the eeglab history, menu callback must be nested into "try" and
+%   a "catch" strings. For more information on how to create eeglab
 %   plugins, see http://www.sccn.ucsd.edu/eeglab/contrib.html
 %
 % Author: Arnaud Delorme, CNL / Salk Institute, 22 February 2003
@@ -40,16 +40,16 @@
 % Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1.07  USA
 
 function vers = eegplugin_ibSurprise(fig, trystrs, catchstrs)
-    
+
     vers = 'ibSurprise0.1';
     if nargin < 3
         error('eegplugin_ibSurprise requires 3 arguments');
     end
-    
+
     % find tools menu
     % ---------------
-    menu = findobj(fig, 'tag', 'tools'); 
-    % tag can be 
+    menu = findobj(fig, 'tag', 'tools');
+    % tag can be
     % 'import data'  -> File > import data menu
     % 'import epoch' -> File > import epoch menu
     % 'import event' -> File > import event menu
@@ -57,26 +57,27 @@ function vers = eegplugin_ibSurprise(fig, trystrs, catchstrs)
     % 'tools'        -> tools menu
     % 'plot'         -> plot menu
 
-    % command to check that the '.source' is present in the EEG structure 
+    % command to check that the '.source' is present in the EEG structure
     % -------------------------------------------------------------------
-    %check_dipfit = [trystrs.no_check 'if ~isfield(EEG, ''dipfit''), error(''Run the dipole setting first''); end;'  ...
-      %              'if isempty(EEG.dipfit), error(''Run the dipole setting first''); end;'  ];
+    % check_dipfit = [trystrs.no_check 'if ~isfield(EEG, ''dipfit''), error(''Run the dipole setting first''); end;'  ...
+    %                'if isempty(EEG.dipfit), error(''Run the dipole setting first''); end;'  ];
     %check_dipfitnocheck = [ trystrs.no_check 'if ~isfield(EEG, ''dipfit''), error(''Run the dipole setting first''); end; ' ];
     %check_chans = [ '[EEG tmpres] = eeg_checkset(EEG, ''chanlocs_homogeneous'');' ...
      %                  'if ~isempty(tmpres), eegh(tmpres), end; clear tmpres;' ];
-    
+
     % menu callback commands
     % ----------------------
-    comGenSeqData =         [ trystrs.check_ica check_chans '[EEG LASTCOM]=pop_dipfit_settings(EEG);'    catchstrs.store_and_hist ]; 
-    comOddballPotential   = [ check_dipfit check_chans  '[EEG LASTCOM] = pop_dipfit_gridsearch(EEG);'    catchstrs.store_and_hist ];
-    comCalcIbPred     =     [ check_dipfitnocheck check_chans [ 'EEG = pop_dipfit_nonlinear(EEG); ' ...
-                             'LASTCOM = ''% === History not supported for manual dipole fitting ==='';' ]  catchstrs.store_and_hist ];
-    comFit    =             [ check_dipfit check_chans  '[EEG LASTCOM] = pop_multifit(EEG);'        catchstrs.store_and_hist ];
+    comGenSeqData =         'EEG = pop_generate_sequenceData(EEG);';
+    %[ trystrs.check_ica check_chans '[EEG LASTCOM]=testfunc(EEG);'    catchstrs.store_and_hist ];
+    comOddballPotential   = []; %[ check_dipfit check_chans  '[EEG LASTCOM] = pop_dipfit_gridsearch(EEG);'    catchstrs.store_and_hist ];
+    comCalcIbPred     =     []; %[ check_dipfitnocheck check_chans [ 'EEG = pop_dipfit_nonlinear(EEG); ' ...
+                            % 'LASTCOM = ''% === History not supported for manual dipole fitting ==='';' ]  catchstrs.store_and_hist ];
+    comFit    =             []; %[ check_dipfit check_chans  '[EEG LASTCOM] = pop_multifit(EEG);'        catchstrs.store_and_hist ];
     % preserve the '=" sign in the comment above: it is used by EEGLAB to detect appropriate LASTCOM
-    comModelPlot    =       [ check_dipfit check_chans 'LASTCOM = pop_dipplot(EEG);'                     catchstrs.add_to_hist ];
-    comPval    =            [ check_dipfit check_chans 'LASTCOM = pop_dipplot(EEG);'                     catchstrs.add_to_hist ];
+    comModelPlot    =       []; %[ check_dipfit check_chans 'LASTCOM = pop_dipplot(EEG);'                     catchstrs.add_to_hist ];
+    comPval    =            []; %[ check_dipfit check_chans 'LASTCOM = pop_dipplot(EEG);'                     catchstrs.add_to_hist ];
 
-    
+
     % create menus
     % ------------
 %     submenu = uimenu( menu, 'Label', 'Locate dipoles using DIPFIT 2.x', 'separator', 'on');
