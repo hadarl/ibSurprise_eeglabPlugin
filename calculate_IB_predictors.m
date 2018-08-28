@@ -31,8 +31,8 @@ for pastLength = 1:maxPastLength
         if ~( all(  s(valid)>0))
            % find( s(valid)==0)
            disp('found zero s')
-        end        
-         ibPredictors(pastLength, betaInd,:)  = s;        
+        end
+         ibPredictors(pastLength, betaInd,:)  = s;
     end
 end
 
