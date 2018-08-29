@@ -69,8 +69,9 @@ function vers = eegplugin_ibSurprise(fig, trystrs, catchstrs)
     % ----------------------
     comGenSeqData =         'EEG = pop_generate_sequenceData(EEG);';
     %[ trystrs.check_ica check_chans '[EEG LASTCOM]=testfunc(EEG);'    catchstrs.store_and_hist ];
+    comCalcEegFeature =     'EEG = pop_calculate_EEG_feature(EEG);';
     comOddballPotential   = []; %[ check_dipfit check_chans  '[EEG LASTCOM] = pop_dipfit_gridsearch(EEG);'    catchstrs.store_and_hist ];
-    comCalcIbPred     =     'EEG = pop_calculate_IB_predictors(EEG);'; 
+    comCalcIbPred     =     'EEG = pop_calculate_IB_predictors(EEG);';
                             % 'LASTCOM = ''% === History not supported for manual dipole fitting ==='';' ]  catchstrs.store_and_hist ];
     comFit    =             'EEG = pop_calculate_IB_model_fit_map(EEG);';  %[ check_dipfit check_chans  '[EEG LASTCOM] = pop_multifit(EEG);'        catchstrs.store_and_hist ];
     % preserve the '=" sign in the comment above: it is used by EEGLAB to detect appropriate LASTCOM
@@ -83,6 +84,7 @@ function vers = eegplugin_ibSurprise(fig, trystrs, catchstrs)
 %     submenu = uimenu( menu, 'Label', 'Locate dipoles using DIPFIT 2.x', 'separator', 'on');
     submenu = uimenu( menu, 'Label', 'IB surprise analysis', 'separator', 'on');
     uimenu( submenu, 'Label', 'Create sequence data'   , 'CallBack', comGenSeqData);
+    uimenu( submenu, 'Label', 'Calculate EEG feature per trial'   , 'CallBack', comCalcEegFeature);
     uimenu( submenu, 'Label', 'Plot oddball probability potential'   , 'CallBack', comOddballPotential);
     uimenu( submenu, 'Label', 'Calculate IB predictors'  , 'CallBack', comCalcIbPred);
     uimenu( submenu, 'Label', 'Calculate model fit map'     , 'CallBack', comFit);
