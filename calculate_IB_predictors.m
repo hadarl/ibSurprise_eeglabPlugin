@@ -37,4 +37,6 @@ for pastLength = 1:maxPastLength
     end
 end
 
-EEG.ibsurprise.ibPredictors = ibPredictors;
+EEG.ibsurprise.ibModel.params.betaVec = betaVec;
+EEG.ibsurprise.ibModel.params.maxPastLength = maxPastLength;
+EEG.ibsurprise.ibModel.predictors = ibPredictors;
