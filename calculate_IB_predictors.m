@@ -25,6 +25,7 @@ nTrialsPerBlock = nTrials/nBlocks; % Should be an integer. Note that nTrials is 
 ibPredictors = zeros(maxPastLength,length(betaVec),nTrials);
 for pastLength = 1:maxPastLength
     pXY = pXYallN{pastLength};
+    pastLength
     for betaInd = 1:length(betaVec)
        s = [zeros(1,pastLength) calc_surprise_signal_uniTheta(sequence1, pastLength, betaVec(betaInd),pXY)];
        valid = set_valid_trials_per_block(nBlocks,nTrialsPerBlock,pastLength);

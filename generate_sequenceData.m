@@ -11,9 +11,12 @@ oddStanSequence(oddStanSequence==eventType(2)) = 1;
 
 sequenceData.seq = eventSequenceOrig;
 sequenceData.seq1 = oddStanSequence;
+sequenceData.seq1Full = oddStanSequence;
 sequenceData.nBlocks = 1;
 sequenceData.q1 = [sum(oddStanSequence==0)/length(oddStanSequence)]';
 % sequenceData.probPerTrial = kron(sequenceData.q1',ones(1,nTrialsPerBlock));
 sequenceData.nTrialsPerBlock = length(oddStanSequence);
 
 EEG.ibsurprise.sequenceData = sequenceData;
+
+disp('EEG.ibsurprise.sequenceData was created');
